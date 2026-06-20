@@ -1,0 +1,991 @@
+/* ==========================================
+ * KV Menu - Stylesheet (with Premium Defaults)
+ * ========================================== */
+
+.kv-menu-wrapper {
+	--kv-menu-align: left;
+	position: relative;
+	width: 100%;
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+}
+
+/* Main bar wrapper grid layout */
+.kv-menu-main-bar {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	width: 100%;
+	box-sizing: border-box;
+}
+
+.kv-menu-nav {
+	flex-grow: 1;
+	min-width: 0;
+}
+
+.kv-menu-logo-container {
+	display: none !important; /* Hide logo on the default main header bar */
+}
+
+.kv-menu-logo-link {
+	display: inline-flex;
+	align-items: center;
+	text-decoration: none;
+	color: #0f172a;
+}
+
+.kv-menu-logo-img {
+	display: block;
+	max-width: 100%;
+	height: 40px; /* Default height to prevent collapsing on desktop */
+	width: auto;
+	object-fit: contain;
+}
+
+.kv-menu-logo-text {
+	font-size: 24px;
+	font-weight: 700;
+	color: inherit;
+}
+
+.kv-menu-list {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: flex;
+}
+
+.kv-menu-list li {
+	position: relative;
+	margin: 0;
+	padding: 0;
+}
+
+/* Premium Default Styles for Top Level Links */
+.kv-menu-list > .menu-item > a {
+	display: flex;
+	align-items: center;
+	padding: 14px 20px;
+	color: #1e293b; /* Sleek charcoal dark */
+	font-weight: 500;
+	font-size: 15px;
+	letter-spacing: 0.15px;
+	text-decoration: none;
+	transition: color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+	box-sizing: border-box;
+	position: relative;
+}
+
+.kv-menu-list > .menu-item:hover > a {
+	color: #6366f1;
+}
+
+/* Active item indicator */
+.kv-menu-list > .menu-item.current-menu-item > a,
+.kv-menu-list > .menu-item.current-menu-ancestor > a {
+	color: #6366f1;
+}
+
+/* Submenu Indicator Icons */
+.kv-menu-list .menu-item-has-children > a {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.kv-menu-sub-indicator {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	margin-left: 8px;
+	line-height: 1;
+	transition: transform 0.3s ease;
+}
+
+.kv-menu-sub-indicator svg,
+.kv-menu-sub-indicator i {
+	width: 1em;
+	height: 1em;
+	display: block;
+}
+
+/* Default visibility */
+.kv-menu-sub-indicator-desktop {
+	display: inline-flex;
+}
+
+.kv-menu-sub-indicator-mobile {
+	display: none;
+}
+
+/* Rotate indicator arrow on hover for desktop dropdowns */
+.kv-menu-list li:hover > a .kv-menu-sub-indicator-desktop {
+	transform: rotate(180deg);
+}
+
+/* Horizontal Layout */
+.kv-menu--layout-horizontal .kv-menu-list {
+	flex-direction: row;
+	flex-wrap: wrap;
+}
+
+/* Vertical Layout */
+.kv-menu--layout-vertical .kv-menu-list {
+	flex-direction: column;
+}
+
+/* Submenu Dropdowns (Desktop Hover) */
+.kv-menu-list .sub-menu {
+	position: absolute;
+	top: 100%;
+	left: 0;
+	z-index: 9999;
+	visibility: hidden;
+	min-width: 230px;
+	list-style: none;
+	margin: 0;
+	padding: 8px 0;
+	background-color: rgba(255, 255, 255, 0.95);
+	backdrop-filter: blur(12px);
+	-webkit-backdrop-filter: blur(12px);
+	box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+	border: 1px solid rgba(226, 232, 240, 0.8);
+	border-radius: 12px;
+	text-align: left;
+	opacity: 0;
+	transform: translateY(12px);
+	transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1), transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.3s;
+	box-sizing: border-box;
+}
+
+/* Dropdown Link Styles */
+.kv-menu-list .sub-menu a {
+	display: block;
+	padding: 10px 20px;
+	color: #334155; /* Slate 700 */
+	font-size: 14px;
+	font-weight: 500;
+	transition: all 0.2s ease;
+	text-decoration: none;
+	border-radius: 6px;
+	margin: 2px 8px;
+}
+
+.kv-menu-list .sub-menu li:hover > a {
+	background-color: rgba(99, 102, 241, 0.07);
+	color: #6366f1;
+}
+
+/* Secondary levels of submenu */
+.kv-menu-list .sub-menu .sub-menu {
+	top: 0;
+	left: 100%;
+}
+
+/* Hover behaviors for submenus (Desktop only) */
+@media (min-width: 1025px) {
+	.kv-menu-list li:hover > .sub-menu {
+		visibility: visible;
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+/* Fallback hover behaviors for tablet if breakpoint is mobile only */
+@media (min-width: 768px) {
+	.kv-menu--breakpoint-mobile .kv-menu-list li:hover > .sub-menu {
+		visibility: visible;
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+/* Toggle button container hidden by default */
+.kv-menu-toggle-container {
+	display: none;
+	width: 100%;
+	box-sizing: border-box;
+}
+
+/* Toggle button default premium style */
+.kv-menu-toggle-btn {
+	background: #f8fafc;
+	border: 1px solid #e2e8f0;
+	cursor: pointer;
+	padding: 10px 16px;
+	font-size: 20px;
+	line-height: 1;
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	transition: all 0.3s ease;
+	outline: none;
+	border-radius: 8px;
+	color: #0f172a;
+}
+
+.kv-menu-toggle-btn:hover {
+	background: #f1f5f9;
+	border-color: #cbd5e1;
+	color: #6366f1;
+}
+
+.kv-menu-toggle-icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 1em;
+	height: 1em;
+	line-height: 1;
+}
+
+.kv-menu-toggle-icon svg {
+	width: 1em;
+	height: 1em;
+	fill: currentColor;
+	display: block;
+}
+
+.kv-menu-toggle-icon i {
+	width: 1em;
+	height: 1em;
+	font-size: 1em;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+}
+
+/* Open/Close state switching for Custom Icon mode */
+.kv-menu-wrapper:not(.kv-menu--open) .kv-menu-icon-close {
+	display: none !important;
+}
+.kv-menu-wrapper.kv-menu--open .kv-menu-icon-open {
+	display: none !important;
+}
+
+/* Animated Hamburger CSS Toggle */
+.kv-menu-hamburger-animated {
+	width: 1em;
+	height: 0.7em;
+	position: relative;
+	cursor: pointer;
+	display: block;
+}
+
+.kv-menu-hamburger-animated span {
+	position: absolute;
+	left: 0;
+	width: 100%;
+	height: 0.1em;
+	background-color: currentColor;
+	transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+	border-radius: 0.1em;
+}
+
+.kv-menu-hamburger-animated span:nth-child(1) {
+	top: 0;
+}
+
+.kv-menu-hamburger-animated span:nth-child(2) {
+	top: 0.3em;
+	transform-origin: left center;
+}
+
+.kv-menu-hamburger-animated span:nth-child(3) {
+	top: 0.6em;
+}
+
+/* Open state transformations */
+.kv-menu-wrapper.kv-menu--open .kv-menu-hamburger-animated span:nth-child(1) {
+	transform: translateY(0.3em) rotate(45deg);
+}
+
+.kv-menu-wrapper.kv-menu--open .kv-menu-hamburger-animated span:nth-child(2) {
+	opacity: 0;
+	transform: scaleX(0);
+}
+
+.kv-menu-wrapper.kv-menu--open .kv-menu-hamburger-animated span:nth-child(3) {
+	transform: translateY(-0.3em) rotate(-45deg);
+}
+
+/* Dim Page Overlay when mobile menu is open */
+.kv-menu-wrapper.kv-menu--open::before {
+	content: '';
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: rgba(15, 23, 42, 0.4);
+	backdrop-filter: blur(4px);
+	-webkit-backdrop-filter: blur(4px);
+	z-index: 999990;
+	animation: kvFadeIn 0.3s ease forwards;
+}
+
+@keyframes kvFadeIn {
+	from { opacity: 0; }
+	to { opacity: 1; }
+}
+
+/* Shareable Responsive Rules */
+.kv-menu-mobile-header {
+	display: none; /* Hidden on desktop by default */
+	align-items: center;
+	justify-content: space-between;
+	padding: 16px 20px;
+	border-bottom: 1px solid rgba(226, 232, 240, 0.6);
+	box-sizing: border-box;
+	background-color: inherit;
+}
+
+.kv-menu-mobile-header-left {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+}
+
+.kv-menu-mobile-logo-container {
+	display: flex;
+	align-items: center;
+}
+
+.kv-menu-mobile-logo-container img {
+	height: 28px;
+	width: auto;
+	object-fit: contain;
+}
+
+.kv-menu-mobile-logo-container .kv-menu-logo-text {
+	font-size: 20px;
+	font-weight: 700;
+}
+
+.kv-menu-back-btn,
+.kv-menu-close-btn {
+	background: transparent;
+	border: none;
+	cursor: pointer;
+	padding: 8px;
+	color: #0f172a;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	outline: none;
+	font-size: 20px;
+	transition: color 0.2s ease;
+}
+
+.kv-menu-back-btn:hover,
+.kv-menu-close-btn:hover {
+	color: #6366f1;
+}
+
+.kv-menu-back-icon,
+.kv-menu-close-icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 1.25em;
+	height: 1.25em;
+}
+
+.kv-menu-back-icon svg,
+.kv-menu-close-icon svg,
+.kv-menu-close-icon i {
+	width: 1em;
+	height: 1em;
+	fill: none;
+	display: block;
+}
+
+.kv-menu-drilldown-container {
+	position: relative;
+	width: 100%;
+}
+
+.kv-menu-mobile-footer {
+	display: none; /* Hidden on desktop by default */
+	padding: 24px;
+	border-top: 1px solid rgba(226, 232, 240, 0.6);
+	background-color: #f8fafc;
+	box-sizing: border-box;
+	width: 100%;
+}
+
+.kv-menu-footer-links {
+	display: flex;
+	flex-direction: column;
+	gap: 14px;
+	margin-bottom: 24px;
+}
+
+.kv-menu-footer-links a,
+.kv-menu-footer-links span {
+	text-decoration: none;
+	color: #475569;
+	font-weight: 600;
+	font-size: 14px;
+	transition: color 0.2s ease;
+}
+
+.kv-menu-footer-links a:hover {
+	color: #6366f1;
+}
+
+.kv-menu-footer-cta {
+	display: block;
+	width: 100%;
+	text-align: center;
+	padding: 12px 24px;
+	background-color: #6366f1;
+	color: #ffffff !important;
+	font-weight: 600;
+	font-size: 15px;
+	text-decoration: none;
+	border-radius: 8px;
+	transition: background-color 0.2s ease;
+	box-sizing: border-box;
+}
+
+.kv-menu-footer-cta:hover {
+	background-color: #4f46e5;
+}
+
+/* ==========================================
+ * Responsive Breakpoint Styles
+ * ========================================== */
+
+/* 1. Tablet Breakpoint (< 1025px) */
+@media (max-width: 1024px) {
+	.kv-menu--breakpoint-tablet .kv-menu-toggle-container {
+		display: block;
+	}
+
+	.kv-menu--breakpoint-tablet .kv-menu-mobile-header {
+		display: flex;
+	}
+
+	.kv-menu--breakpoint-tablet .kv-menu-mobile-footer {
+		display: block;
+	}
+
+	.kv-menu--breakpoint-tablet .kv-menu-drilldown-container {
+		flex-grow: 1;
+		overflow-y: auto;
+		overflow-x: hidden;
+	}
+
+	.kv-menu--breakpoint-tablet .kv-menu-nav {
+		position: fixed;
+		top: 0;
+		bottom: 0;
+		width: 320px;
+		max-width: 100%;
+		z-index: 999999;
+		background-color: #ffffff;
+		display: flex !important;
+		flex-direction: column;
+		justify-content: space-between;
+		box-sizing: border-box;
+		transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+	}
+
+	/* Tablet drawer animations */
+	.kv-menu--breakpoint-tablet.kv-menu--anim-slide-right .kv-menu-nav {
+		right: 0;
+		left: auto;
+		box-shadow: -10px 0 30px rgba(0, 0, 0, 0.1);
+		transform: translateX(100%);
+	}
+	.kv-menu--breakpoint-tablet.kv-menu--anim-slide-right.kv-menu--open .kv-menu-nav {
+		transform: translateX(0);
+	}
+
+	.kv-menu--breakpoint-tablet.kv-menu--anim-slide-left .kv-menu-nav {
+		left: 0;
+		right: auto;
+		box-shadow: 10px 0 30px rgba(0, 0, 0, 0.1);
+		transform: translateX(-100%);
+	}
+	.kv-menu--breakpoint-tablet.kv-menu--anim-slide-left.kv-menu--open .kv-menu-nav {
+		transform: translateX(0);
+	}
+
+	.kv-menu--breakpoint-tablet.kv-menu--anim-fade-in .kv-menu-nav {
+		right: 0;
+		left: auto;
+		box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+		opacity: 0;
+		pointer-events: none;
+		transform: scale(0.95);
+	}
+	.kv-menu--breakpoint-tablet.kv-menu--anim-fade-in.kv-menu--open .kv-menu-nav {
+		opacity: 1;
+		pointer-events: auto;
+		transform: scale(1);
+	}
+
+	.kv-menu--breakpoint-tablet .kv-menu-list {
+		flex-direction: column;
+		width: 100%;
+		box-sizing: border-box;
+		padding: 16px 8px;
+	}
+
+	.kv-menu--breakpoint-tablet .kv-menu-list li {
+		width: 100%;
+		position: static !important;
+	}
+
+	.kv-menu--breakpoint-tablet .kv-menu-list > .menu-item > a {
+		padding: 14px 20px;
+		border-radius: 8px;
+	}
+
+	.kv-menu--breakpoint-tablet .kv-menu-list > .menu-item > a::before {
+		display: none !important;
+	}
+
+	/* Submenu drilldown steps */
+	.kv-menu--breakpoint-tablet .kv-menu-list .sub-menu {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		z-index: 100;
+		background-color: inherit;
+		box-shadow: none;
+		border: none;
+		border-radius: 0;
+		transform: translateX(100%);
+		transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+		display: block;
+		opacity: 1;
+		padding: 16px 8px;
+		box-sizing: border-box;
+	}
+
+	.kv-menu--breakpoint-tablet .kv-menu-list .sub-menu.is-active {
+		transform: translateX(0);
+	}
+
+	.kv-menu--breakpoint-tablet .kv-menu-list .sub-menu a {
+		margin: 2px 8px;
+		padding: 12px 16px;
+	}
+
+	.kv-menu--breakpoint-tablet .kv-menu-sub-indicator-desktop {
+		display: none;
+	}
+
+	.kv-menu--breakpoint-tablet .kv-menu-sub-indicator-mobile {
+		display: inline-flex;
+	}
+}
+
+/* 2. Mobile Breakpoint (< 768px) */
+@media (max-width: 767px) {
+	.kv-menu--breakpoint-mobile .kv-menu-toggle-container {
+		display: block;
+	}
+
+	.kv-menu--breakpoint-mobile .kv-menu-mobile-header {
+		display: flex;
+	}
+
+	.kv-menu--breakpoint-mobile .kv-menu-mobile-footer {
+		display: block;
+	}
+
+	.kv-menu--breakpoint-mobile .kv-menu-drilldown-container {
+		flex-grow: 1;
+		overflow-y: auto;
+		overflow-x: hidden;
+	}
+
+	.kv-menu--breakpoint-mobile .kv-menu-nav {
+		position: fixed;
+		top: 0;
+		bottom: 0;
+		width: 320px;
+		max-width: 100%;
+		z-index: 999999;
+		background-color: #ffffff;
+		display: flex !important;
+		flex-direction: column;
+		justify-content: space-between;
+		box-sizing: border-box;
+		transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+	}
+
+	/* Mobile drawer animations */
+	.kv-menu--breakpoint-mobile.kv-menu--anim-slide-right .kv-menu-nav {
+		right: 0;
+		left: auto;
+		box-shadow: -10px 0 30px rgba(0, 0, 0, 0.1);
+		transform: translateX(100%);
+	}
+	.kv-menu--breakpoint-mobile.kv-menu--anim-slide-right.kv-menu--open .kv-menu-nav {
+		transform: translateX(0);
+	}
+
+	.kv-menu--breakpoint-mobile.kv-menu--anim-slide-left .kv-menu-nav {
+		left: 0;
+		right: auto;
+		box-shadow: 10px 0 30px rgba(0, 0, 0, 0.1);
+		transform: translateX(-100%);
+	}
+	.kv-menu--breakpoint-mobile.kv-menu--anim-slide-left.kv-menu--open .kv-menu-nav {
+		transform: translateX(0);
+	}
+
+	.kv-menu--breakpoint-mobile.kv-menu--anim-fade-in .kv-menu-nav {
+		right: 0;
+		left: auto;
+		box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+		opacity: 0;
+		pointer-events: none;
+		transform: scale(0.95);
+	}
+	.kv-menu--breakpoint-mobile.kv-menu--anim-fade-in.kv-menu--open .kv-menu-nav {
+		opacity: 1;
+		pointer-events: auto;
+		transform: scale(1);
+	}
+
+	.kv-menu--breakpoint-mobile .kv-menu-list {
+		flex-direction: column;
+		width: 100%;
+		box-sizing: border-box;
+		padding: 16px 8px;
+	}
+
+	.kv-menu--breakpoint-mobile .kv-menu-list li {
+		width: 100%;
+		position: static !important;
+	}
+
+	.kv-menu--breakpoint-mobile .kv-menu-list > .menu-item > a {
+		padding: 14px 20px;
+		border-radius: 8px;
+	}
+
+	.kv-menu--breakpoint-mobile .kv-menu-list > .menu-item > a::before {
+		display: none !important;
+	}
+
+	/* Submenu drilldown steps */
+	.kv-menu--breakpoint-mobile .kv-menu-list .sub-menu {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		z-index: 100;
+		background-color: inherit;
+		box-shadow: none;
+		border: none;
+		border-radius: 0;
+		transform: translateX(100%);
+		transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+		display: block;
+		opacity: 1;
+		padding: 16px 8px;
+		box-sizing: border-box;
+	}
+
+	.kv-menu--breakpoint-mobile .kv-menu-list .sub-menu.is-active {
+		transform: translateX(0);
+	}
+
+	.kv-menu--breakpoint-mobile .kv-menu-list .sub-menu a {
+		margin: 2px 8px;
+		padding: 12px 16px;
+	}
+
+	.kv-menu--breakpoint-mobile .kv-menu-sub-indicator-desktop {
+		display: none;
+	}
+
+	.kv-menu--breakpoint-mobile .kv-menu-sub-indicator-mobile {
+		display: inline-flex;
+	}
+}
+
+
+/* Keyframes */
+@keyframes kvSlideDown {
+	from {
+		opacity: 0;
+		transform: translateY(-10px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+/* ==========================================
+ * KV Mega Menu Styles
+ * ========================================== */
+
+/* Desktop viewports (Tablet is breakpoint) */
+@media (min-width: 1025px) {
+	.kv-menu-list > .menu-item-has-mega-menu {
+		position: static !important;
+	}
+	.kv-menu-list .kv-menu-mega-panel {
+		position: absolute;
+		top: 100%;
+		left: 0;
+		right: 0;
+		width: 100%;
+		z-index: 9999;
+		visibility: hidden;
+		background-color: transparent;
+		backdrop-filter: none;
+		-webkit-backdrop-filter: none;
+		box-shadow: none;
+		border: none;
+		border-radius: 0;
+		opacity: 0;
+		transform: translateY(12px);
+		transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1), transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.3s;
+		box-sizing: border-box;
+		padding: 0;
+	}
+	.kv-menu-list .menu-item-has-mega-menu:hover > .kv-menu-mega-panel {
+		visibility: visible;
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+/* Desktop viewports (Mobile is breakpoint) */
+@media (min-width: 768px) {
+	.kv-menu--breakpoint-mobile .kv-menu-list > .menu-item-has-mega-menu {
+		position: static !important;
+	}
+	.kv-menu--breakpoint-mobile .kv-menu-list .kv-menu-mega-panel {
+		position: absolute;
+		top: 100%;
+		left: 0;
+		right: 0;
+		width: 100%;
+		z-index: 9999;
+		visibility: hidden;
+		background-color: transparent;
+		backdrop-filter: none;
+		-webkit-backdrop-filter: none;
+		box-shadow: none;
+		border: none;
+		border-radius: 0;
+		opacity: 0;
+		transform: translateY(12px);
+		transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1), transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.3s;
+		box-sizing: border-box;
+		padding: 0;
+	}
+	.kv-menu--breakpoint-mobile .kv-menu-list .menu-item-has-mega-menu:hover > .kv-menu-mega-panel {
+		visibility: visible;
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+/* Always desktop layout (Breakpoint = None) */
+.kv-menu--breakpoint-none .kv-menu-list > .menu-item-has-mega-menu {
+	position: static !important;
+}
+.kv-menu--breakpoint-none .kv-menu-list .kv-menu-mega-panel {
+	position: absolute;
+	top: 100%;
+	left: 0;
+	right: 0;
+	width: 100%;
+	z-index: 9999;
+	visibility: hidden;
+	background-color: transparent;
+	backdrop-filter: none;
+	-webkit-backdrop-filter: none;
+	box-shadow: none;
+	border: none;
+	border-radius: 0;
+	opacity: 0;
+	transform: translateY(12px);
+	transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1), transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.3s;
+	box-sizing: border-box;
+	padding: 0;
+}
+.kv-menu--breakpoint-none .kv-menu-list .menu-item-has-mega-menu:hover > .kv-menu-mega-panel {
+	visibility: visible;
+	opacity: 1;
+	transform: translateY(0);
+}
+
+/* Mobile view styling - Tablet Breakpoint (< 1025px) */
+@media (max-width: 1024px) {
+	.kv-menu--breakpoint-tablet .kv-menu-list .kv-menu-mega-panel {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		z-index: 100;
+		background-color: inherit;
+		box-shadow: none;
+		border: none;
+		border-radius: 0;
+		transform: translateX(100%);
+		transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+		display: block;
+		opacity: 1;
+		box-sizing: border-box;
+		overflow-y: auto;
+		padding: 0;
+	}
+	
+	.kv-menu--breakpoint-tablet .kv-menu-list .kv-menu-mega-panel.is-active {
+		transform: translateX(0);
+	}
+}
+
+/* Mobile view styling - Mobile Breakpoint (< 768px) */
+@media (max-width: 767px) {
+	.kv-menu--breakpoint-mobile .kv-menu-list .kv-menu-mega-panel {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		z-index: 100;
+		background-color: inherit;
+		box-shadow: none;
+		border: none;
+		border-radius: 0;
+		transform: translateX(100%);
+		transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+		display: block;
+		opacity: 1;
+		box-sizing: border-box;
+		overflow-y: auto;
+		padding: 0;
+	}
+	
+	.kv-menu--breakpoint-mobile .kv-menu-list .kv-menu-mega-panel.is-active {
+		transform: translateX(0);
+	}
+}
+
+/* Hide standard sub-menus on Mega Menu parents */
+.kv-menu-list .menu-item-has-mega-menu > .sub-menu {
+	display: none !important;
+	visibility: hidden !important;
+}
+
+/* If keep-mobile-sub is enabled, hide default submenus on desktop */
+.kv-menu-list .menu-item-has-mega-menu.kv-menu-mega-keep-mobile-sub > .sub-menu {
+	display: none !important;
+	visibility: hidden !important;
+}
+
+@media (max-width: 1024px) {
+	/* Ensure standard submenus are visible on tablet */
+	.kv-menu--breakpoint-tablet .kv-menu-list .sub-menu {
+		visibility: visible !important;
+	}
+
+	/* Tablet fallback: hide mega panel, show standard submenu */
+	.kv-menu--breakpoint-tablet .kv-menu-list .menu-item-has-mega-menu.kv-menu-mega-keep-mobile-sub > .kv-menu-mega-panel {
+		display: none !important;
+		visibility: hidden !important;
+	}
+	.kv-menu--breakpoint-tablet .kv-menu-list .menu-item-has-mega-menu.kv-menu-mega-keep-mobile-sub > .sub-menu {
+		display: block !important;
+		visibility: visible !important;
+	}
+}
+
+@media (max-width: 767px) {
+	/* Ensure standard submenus are visible on mobile */
+	.kv-menu--breakpoint-mobile .kv-menu-list .sub-menu {
+		visibility: visible !important;
+	}
+
+	/* Mobile fallback: hide mega panel, show standard submenu */
+	.kv-menu--breakpoint-mobile .kv-menu-list .menu-item-has-mega-menu.kv-menu-mega-keep-mobile-sub > .kv-menu-mega-panel {
+		display: none !important;
+		visibility: hidden !important;
+	}
+	.kv-menu--breakpoint-mobile .kv-menu-list .menu-item-has-mega-menu.kv-menu-mega-keep-mobile-sub > .sub-menu {
+		display: block !important;
+		visibility: visible !important;
+	}
+}
+
+/* ==========================================
+ * KV Mega Menu Custom Width & Alignment Styles
+ * ========================================== */
+
+/* 1. For Tablet Breakpoint (desktop is >= 1025px) */
+@media (min-width: 1025px) {
+	.kv-menu-mega--width-custom.kv-menu-mega--align-left .kv-menu-list .kv-menu-mega-panel {
+		left: 0;
+		right: auto;
+	}
+	.kv-menu-mega--width-custom.kv-menu-mega--align-right .kv-menu-list .kv-menu-mega-panel {
+		right: 0;
+		left: auto;
+	}
+	.kv-menu-mega--width-custom.kv-menu-mega--align-center .kv-menu-list .kv-menu-mega-panel {
+		left: 50%;
+		right: auto;
+		transform: translateX(-50%) translateY(12px);
+	}
+	.kv-menu-mega--width-custom.kv-menu-mega--align-center .kv-menu-list .menu-item-has-mega-menu:hover > .kv-menu-mega-panel {
+		transform: translateX(-50%) translateY(0);
+	}
+}
+
+/* 2. For Mobile Breakpoint (desktop is >= 768px) */
+@media (min-width: 768px) {
+	.kv-menu--breakpoint-mobile.kv-menu-mega--width-custom.kv-menu-mega--align-left .kv-menu-list .kv-menu-mega-panel {
+		left: 0;
+		right: auto;
+	}
+	.kv-menu--breakpoint-mobile.kv-menu-mega--width-custom.kv-menu-mega--align-right .kv-menu-list .kv-menu-mega-panel {
+		right: 0;
+		left: auto;
+	}
+	.kv-menu--breakpoint-mobile.kv-menu-mega--width-custom.kv-menu-mega--align-center .kv-menu-list .kv-menu-mega-panel {
+		left: 50%;
+		right: auto;
+		transform: translateX(-50%) translateY(12px);
+	}
+	.kv-menu--breakpoint-mobile.kv-menu-mega--width-custom.kv-menu-mega--align-center .kv-menu-list .menu-item-has-mega-menu:hover > .kv-menu-mega-panel {
+		transform: translateX(-50%) translateY(0);
+	}
+}
+
+/* 3. For No Breakpoint (always desktop) */
+.kv-menu--breakpoint-none.kv-menu-mega--width-custom.kv-menu-mega--align-left .kv-menu-list .kv-menu-mega-panel {
+	left: 0;
+	right: auto;
+}
+.kv-menu--breakpoint-none.kv-menu-mega--width-custom.kv-menu-mega--align-right .kv-menu-list .kv-menu-mega-panel {
+	right: 0;
+	left: auto;
+}
+.kv-menu--breakpoint-none.kv-menu-mega--width-custom.kv-menu-mega--align-center .kv-menu-list .kv-menu-mega-panel {
+	left: 50%;
+	right: auto;
+	transform: translateX(-50%) translateY(12px);
+}
+.kv-menu--breakpoint-none.kv-menu-mega--width-custom.kv-menu-mega--align-center .kv-menu-list .menu-item-has-mega-menu:hover > .kv-menu-mega-panel {
+	transform: translateX(-50%) translateY(0);
+}
+
+
