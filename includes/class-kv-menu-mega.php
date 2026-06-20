@@ -68,6 +68,19 @@ class KV_Menu_Mega {
 		$template_id          = get_post_meta( $item_id, '_kv_menu_mega_template_id', true );
 		$mega_keep_mobile_sub = get_post_meta( $item_id, '_kv_menu_mega_keep_mobile_sub', true );
 
+		$mega_width_type      = get_post_meta( $item_id, '_kv_menu_mega_width_type', true );
+		if ( empty( $mega_width_type ) ) {
+			$mega_width_type = 'full';
+		}
+		$mega_custom_width    = get_post_meta( $item_id, '_kv_menu_mega_custom_width', true );
+		if ( empty( $mega_custom_width ) ) {
+			$mega_custom_width = '1000px';
+		}
+		$mega_alignment       = get_post_meta( $item_id, '_kv_menu_mega_alignment', true );
+		if ( empty( $mega_alignment ) ) {
+			$mega_alignment = 'center';
+		}
+
 		$templates = get_posts( [
 			'post_type'      => 'elementor_library',
 			'posts_per_page' => -1,
@@ -120,6 +133,36 @@ class KV_Menu_Mega {
 					</select>
 				</p>
 
+				<p class="field-kv-menu-mega-width-type description description-wide" style="margin: 0 0 10px 0;">
+					<label for="edit-menu-item-kv-menu-mega-width-type-<?php echo esc_attr( $item_id ); ?>" style="display: block; font-weight: 600; margin-bottom: 6px; color: #475569;">
+						<?php esc_html_e( 'Mega Menu Width Type', 'kv-menu' ); ?>
+					</label>
+					<select id="edit-menu-item-kv-menu-mega-width-type-<?php echo esc_attr( $item_id ); ?>" name="kv-menu-mega-width-type[<?php echo esc_attr( $item_id ); ?>]" class="widefat kv-menu-mega-width-type-select" style="max-width: 100%;">
+						<option value="full"<?php selected( $mega_width_type, 'full' ); ?>><?php esc_html_e( 'Full Width (Content)', 'kv-menu' ); ?></option>
+						<option value="custom"<?php selected( $mega_width_type, 'custom' ); ?>><?php esc_html_e( 'Custom Width', 'kv-menu' ); ?></option>
+					</select>
+				</p>
+
+				<div class="kv-menu-mega-custom-width-wrapper" style="<?php echo ( 'custom' === $mega_width_type ) ? '' : 'display: none;'; ?> margin-bottom: 10px;">
+					<p class="field-kv-menu-mega-custom-width description description-wide" style="margin: 0 0 10px 0;">
+						<label for="edit-menu-item-kv-menu-mega-custom-width-<?php echo esc_attr( $item_id ); ?>" style="display: block; font-weight: 600; margin-bottom: 6px; color: #475569;">
+							<?php esc_html_e( 'Custom Width (e.g. 800px or 80%)', 'kv-menu' ); ?>
+						</label>
+						<input type="text" id="edit-menu-item-kv-menu-mega-custom-width-<?php echo esc_attr( $item_id ); ?>" class="widefat" name="kv-menu-mega-custom-width[<?php echo esc_attr( $item_id ); ?>]" value="<?php echo esc_attr( $mega_custom_width ); ?>" placeholder="e.g. 1000px" />
+					</p>
+
+					<p class="field-kv-menu-mega-alignment description description-wide" style="margin: 0 0 10px 0;">
+						<label for="edit-menu-item-kv-menu-mega-alignment-<?php echo esc_attr( $item_id ); ?>" style="display: block; font-weight: 600; margin-bottom: 6px; color: #475569;">
+							<?php esc_html_e( 'Position Alignment', 'kv-menu' ); ?>
+						</label>
+						<select id="edit-menu-item-kv-menu-mega-alignment-<?php echo esc_attr( $item_id ); ?>" name="kv-menu-mega-alignment[<?php echo esc_attr( $item_id ); ?>]" class="widefat" style="max-width: 100%;">
+							<option value="left"<?php selected( $mega_alignment, 'left' ); ?>><?php esc_html_e( 'Left', 'kv-menu' ); ?></option>
+							<option value="center"<?php selected( $mega_alignment, 'center' ); ?>><?php esc_html_e( 'Center', 'kv-menu' ); ?></option>
+							<option value="right"<?php selected( $mega_alignment, 'right' ); ?>><?php esc_html_e( 'Right', 'kv-menu' ); ?></option>
+						</select>
+					</p>
+				</div>
+
 				<div class="kv-menu-mega-actions" style="margin-top: 12px; display: flex; gap: 8px; align-items: center;">
 					<a href="<?php echo esc_url( $edit_url ); ?>" class="button button-primary kv-menu-edit-mega-btn" target="_blank" style="<?php echo ( ! empty( $template_id ) ) ? '' : 'display: none;'; ?>">
 						<span class="dashicons dashicons-edit" style="vertical-align: middle; margin-right: 4px; font-size: 16px; width: 16px; height: 16px;"></span>
@@ -171,6 +214,27 @@ class KV_Menu_Mega {
 			}
 		} else {
 			delete_post_meta( $menu_item_db_id, '_kv_menu_mega_template_id' );
+		}
+
+		// Save Width Type
+		if ( isset( $_POST['kv-menu-mega-width-type'][ $menu_item_db_id ] ) ) {
+			update_post_meta( $menu_item_db_id, '_kv_menu_mega_width_type', sanitize_text_field( $_POST['kv-menu-mega-width-type'][ $menu_item_db_id ] ) );
+		} else {
+			delete_post_meta( $menu_item_db_id, '_kv_menu_mega_width_type' );
+		}
+
+		// Save Custom Width
+		if ( isset( $_POST['kv-menu-mega-custom-width'][ $menu_item_db_id ] ) ) {
+			update_post_meta( $menu_item_db_id, '_kv_menu_mega_custom_width', sanitize_text_field( $_POST['kv-menu-mega-custom-width'][ $menu_item_db_id ] ) );
+		} else {
+			delete_post_meta( $menu_item_db_id, '_kv_menu_mega_custom_width' );
+		}
+
+		// Save Alignment
+		if ( isset( $_POST['kv-menu-mega-alignment'][ $menu_item_db_id ] ) ) {
+			update_post_meta( $menu_item_db_id, '_kv_menu_mega_alignment', sanitize_text_field( $_POST['kv-menu-mega-alignment'][ $menu_item_db_id ] ) );
+		} else {
+			delete_post_meta( $menu_item_db_id, '_kv_menu_mega_alignment' );
 		}
 	}
 

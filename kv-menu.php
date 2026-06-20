@@ -63,8 +63,8 @@ final class KV_Menu_Extension {
 	}
 
 	public function enqueue_assets() {
-		wp_enqueue_style( 'kv-menu-css', plugins_url( '/assets/css/kv-menu.css', __FILE__ ), [], '1.0.2' );
-		wp_enqueue_script( 'kv-menu-js', plugins_url( '/assets/js/kv-menu.js', __FILE__ ), [ 'jquery' ], '1.0.2', true );
+		wp_enqueue_style( 'kv-menu-css', plugins_url( '/assets/css/kv-menu.css', __FILE__ ), [], '1.1.1' );
+		wp_enqueue_script( 'kv-menu-js', plugins_url( '/assets/js/kv-menu.js', __FILE__ ), [ 'jquery' ], '1.1.1', true );
 	}
 }
 

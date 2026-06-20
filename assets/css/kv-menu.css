@@ -7,6 +7,25 @@
 	position: relative;
 	width: 100%;
 	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+
+	/* Mobile Menu Color System Defaults */
+	--kv-mobile-panel-bg: #ffffff;
+	--kv-mobile-item-color: #1e293b;
+	--kv-mobile-item-bg: transparent;
+	--kv-mobile-item-hover-color: #6366f1;
+	--kv-mobile-item-hover-bg: rgba(99, 102, 241, 0.07);
+	--kv-mobile-item-active-color: #6366f1;
+	--kv-mobile-item-active-bg: rgba(99, 102, 241, 0.07);
+	--kv-mobile-indicator-color: #475569;
+	--kv-mobile-indicator-hover-color: #6366f1;
+	--kv-mobile-toggle-color: #0f172a;
+	--kv-mobile-toggle-bg: #f8fafc;
+	--kv-mobile-toggle-hover-color: #6366f1;
+	--kv-mobile-toggle-hover-bg: #f1f5f9;
+	--kv-mobile-close-color: #0f172a;
+	--kv-mobile-close-bg: transparent;
+	--kv-mobile-close-hover-color: #6366f1;
+	--kv-mobile-close-hover-bg: transparent;
 }
 
 /* Main bar wrapper grid layout */
@@ -209,7 +228,7 @@
 
 /* Toggle button default premium style */
 .kv-menu-toggle-btn {
-	background: #f8fafc;
+	background-color: var(--kv-mobile-toggle-bg);
 	border: 1px solid #e2e8f0;
 	cursor: pointer;
 	padding: 10px 16px;
@@ -221,13 +240,13 @@
 	transition: all 0.3s ease;
 	outline: none;
 	border-radius: 8px;
-	color: #0f172a;
+	color: var(--kv-mobile-toggle-color);
 }
 
 .kv-menu-toggle-btn:hover {
-	background: #f1f5f9;
+	background-color: var(--kv-mobile-toggle-hover-bg);
 	border-color: #cbd5e1;
-	color: #6366f1;
+	color: var(--kv-mobile-toggle-hover-color);
 }
 
 .kv-menu-toggle-icon {
@@ -362,8 +381,7 @@
 	font-weight: 700;
 }
 
-.kv-menu-back-btn,
-.kv-menu-close-btn {
+.kv-menu-back-btn {
 	background: transparent;
 	border: none;
 	cursor: pointer;
@@ -377,9 +395,43 @@
 	transition: color 0.2s ease;
 }
 
-.kv-menu-back-btn:hover,
-.kv-menu-close-btn:hover {
+.kv-menu-back-btn:hover {
 	color: #6366f1;
+}
+
+.kv-menu-close-btn {
+	background-color: var(--kv-mobile-close-bg);
+	color: var(--kv-mobile-close-color);
+	border: none;
+	cursor: pointer;
+	padding: 8px;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	outline: none;
+	font-size: 20px;
+	transition: all 0.2s ease;
+}
+
+.kv-menu-close-btn svg {
+	stroke: var(--kv-mobile-close-color);
+}
+
+.kv-menu-close-icon svg path {
+	fill: var(--kv-mobile-close-color);
+}
+
+.kv-menu-close-btn:hover {
+	background-color: var(--kv-mobile-close-hover-bg);
+	color: var(--kv-mobile-close-hover-color);
+}
+
+.kv-menu-close-btn:hover svg {
+	stroke: var(--kv-mobile-close-hover-color);
+}
+
+.kv-menu-close-icon:hover svg path {
+	fill: var(--kv-mobile-close-hover-color);
 }
 
 .kv-menu-back-icon,
@@ -392,11 +444,17 @@
 }
 
 .kv-menu-back-icon svg,
-.kv-menu-close-icon svg,
-.kv-menu-close-icon i {
+.kv-menu-close-icon svg {
 	width: 1em;
 	height: 1em;
 	fill: none;
+	stroke: currentColor;
+	display: block;
+}
+
+.kv-menu-close-icon i {
+	width: 1em;
+	height: 1em;
 	display: block;
 }
 
@@ -481,10 +539,12 @@
 		position: fixed;
 		top: 0;
 		bottom: 0;
+		height: 100vh;
+		height: 100dvh;
 		width: 320px;
 		max-width: 100%;
 		z-index: 999999;
-		background-color: #ffffff;
+		background-color: var(--kv-mobile-panel-bg) !important;
 		display: flex !important;
 		flex-direction: column;
 		justify-content: space-between;
@@ -556,7 +616,7 @@
 		width: 100%;
 		height: 100%;
 		z-index: 100;
-		background-color: inherit;
+		background-color: var(--kv-mobile-panel-bg) !important;
 		box-shadow: none;
 		border: none;
 		border-radius: 0;
@@ -577,12 +637,37 @@
 		padding: 12px 16px;
 	}
 
-	.kv-menu--breakpoint-tablet .kv-menu-sub-indicator-desktop {
-		display: none;
+	.kv-menu--breakpoint-tablet .kv-menu-list a {
+		color: var(--kv-mobile-item-color) !important;
+		background-color: var(--kv-mobile-item-bg) !important;
+	}
+
+	.kv-menu--breakpoint-tablet .kv-menu-list li:hover > a,
+	.kv-menu--breakpoint-tablet .kv-menu-list a:hover {
+		color: var(--kv-mobile-item-hover-color) !important;
+		background-color: var(--kv-mobile-item-hover-bg) !important;
+	}
+
+	.kv-menu--breakpoint-tablet .kv-menu-list .current-menu-item > a,
+	.kv-menu--breakpoint-tablet .kv-menu-list .current-menu-ancestor > a {
+		color: var(--kv-mobile-item-active-color) !important;
+		background-color: var(--kv-mobile-item-active-bg) !important;
 	}
 
 	.kv-menu--breakpoint-tablet .kv-menu-sub-indicator-mobile {
 		display: inline-flex;
+		color: var(--kv-mobile-indicator-color) !important;
+		fill: var(--kv-mobile-indicator-color) !important;
+	}
+
+	.kv-menu--breakpoint-tablet .kv-menu-list li:hover > a .kv-menu-sub-indicator-mobile,
+	.kv-menu--breakpoint-tablet .kv-menu-list a:hover .kv-menu-sub-indicator-mobile {
+		color: var(--kv-mobile-indicator-hover-color) !important;
+		fill: var(--kv-mobile-indicator-hover-color) !important;
+	}
+
+	.kv-menu--breakpoint-tablet .kv-menu-sub-indicator-desktop {
+		display: none;
 	}
 }
 
@@ -610,10 +695,12 @@
 		position: fixed;
 		top: 0;
 		bottom: 0;
+		height: 100vh;
+		height: 100dvh;
 		width: 320px;
 		max-width: 100%;
 		z-index: 999999;
-		background-color: #ffffff;
+		background-color: var(--kv-mobile-panel-bg) !important;
 		display: flex !important;
 		flex-direction: column;
 		justify-content: space-between;
@@ -685,7 +772,7 @@
 		width: 100%;
 		height: 100%;
 		z-index: 100;
-		background-color: inherit;
+		background-color: var(--kv-mobile-panel-bg) !important;
 		box-shadow: none;
 		border: none;
 		border-radius: 0;
@@ -706,12 +793,37 @@
 		padding: 12px 16px;
 	}
 
-	.kv-menu--breakpoint-mobile .kv-menu-sub-indicator-desktop {
-		display: none;
+	.kv-menu--breakpoint-mobile .kv-menu-list a {
+		color: var(--kv-mobile-item-color) !important;
+		background-color: var(--kv-mobile-item-bg) !important;
+	}
+
+	.kv-menu--breakpoint-mobile .kv-menu-list li:hover > a,
+	.kv-menu--breakpoint-mobile .kv-menu-list a:hover {
+		color: var(--kv-mobile-item-hover-color) !important;
+		background-color: var(--kv-mobile-item-hover-bg) !important;
+	}
+
+	.kv-menu--breakpoint-mobile .kv-menu-list .current-menu-item > a,
+	.kv-menu--breakpoint-mobile .kv-menu-list .current-menu-ancestor > a {
+		color: var(--kv-mobile-item-active-color) !important;
+		background-color: var(--kv-mobile-item-active-bg) !important;
 	}
 
 	.kv-menu--breakpoint-mobile .kv-menu-sub-indicator-mobile {
 		display: inline-flex;
+		color: var(--kv-mobile-indicator-color) !important;
+		fill: var(--kv-mobile-indicator-color) !important;
+	}
+
+	.kv-menu--breakpoint-mobile .kv-menu-list li:hover > a .kv-menu-sub-indicator-mobile,
+	.kv-menu--breakpoint-mobile .kv-menu-list a:hover .kv-menu-sub-indicator-mobile {
+		color: var(--kv-mobile-indicator-hover-color) !important;
+		fill: var(--kv-mobile-indicator-hover-color) !important;
+	}
+
+	.kv-menu--breakpoint-mobile .kv-menu-sub-indicator-desktop {
+		display: none;
 	}
 }
 
@@ -835,7 +947,7 @@
 		width: 100%;
 		height: 100%;
 		z-index: 100;
-		background-color: inherit;
+		background-color: var(--kv-mobile-panel-bg) !important;
 		box-shadow: none;
 		border: none;
 		border-radius: 0;
@@ -862,7 +974,7 @@
 		width: 100%;
 		height: 100%;
 		z-index: 100;
-		background-color: inherit;
+		background-color: var(--kv-mobile-panel-bg) !important;
 		box-shadow: none;
 		border: none;
 		border-radius: 0;
@@ -926,66 +1038,75 @@
 	}
 }
 
+
 /* ==========================================
- * KV Mega Menu Custom Width & Alignment Styles
+ * KV Mega Menu Custom Width & Alignment Styles (WordPress Menu Controlled)
  * ========================================== */
 
 /* 1. For Tablet Breakpoint (desktop is >= 1025px) */
 @media (min-width: 1025px) {
-	.kv-menu-mega--width-custom.kv-menu-mega--align-left .kv-menu-list .kv-menu-mega-panel {
+	.kv-menu-list .kv-menu-mega-panel--align-left {
 		left: 0;
 		right: auto;
 	}
-	.kv-menu-mega--width-custom.kv-menu-mega--align-right .kv-menu-list .kv-menu-mega-panel {
+	.kv-menu-list .kv-menu-mega-panel--align-right {
 		right: 0;
 		left: auto;
 	}
-	.kv-menu-mega--width-custom.kv-menu-mega--align-center .kv-menu-list .kv-menu-mega-panel {
+	.kv-menu-list .kv-menu-mega-panel--align-center {
 		left: 50%;
 		right: auto;
 		transform: translateX(-50%) translateY(12px);
 	}
-	.kv-menu-mega--width-custom.kv-menu-mega--align-center .kv-menu-list .menu-item-has-mega-menu:hover > .kv-menu-mega-panel {
+	.kv-menu-list .menu-item-has-mega-menu:hover > .kv-menu-mega-panel--align-center {
 		transform: translateX(-50%) translateY(0);
 	}
 }
 
 /* 2. For Mobile Breakpoint (desktop is >= 768px) */
 @media (min-width: 768px) {
-	.kv-menu--breakpoint-mobile.kv-menu-mega--width-custom.kv-menu-mega--align-left .kv-menu-list .kv-menu-mega-panel {
+	.kv-menu--breakpoint-mobile .kv-menu-list .kv-menu-mega-panel--align-left {
 		left: 0;
 		right: auto;
 	}
-	.kv-menu--breakpoint-mobile.kv-menu-mega--width-custom.kv-menu-mega--align-right .kv-menu-list .kv-menu-mega-panel {
+	.kv-menu--breakpoint-mobile .kv-menu-list .kv-menu-mega-panel--align-right {
 		right: 0;
 		left: auto;
 	}
-	.kv-menu--breakpoint-mobile.kv-menu-mega--width-custom.kv-menu-mega--align-center .kv-menu-list .kv-menu-mega-panel {
+	.kv-menu--breakpoint-mobile .kv-menu-list .kv-menu-mega-panel--align-center {
 		left: 50%;
 		right: auto;
 		transform: translateX(-50%) translateY(12px);
 	}
-	.kv-menu--breakpoint-mobile.kv-menu-mega--width-custom.kv-menu-mega--align-center .kv-menu-list .menu-item-has-mega-menu:hover > .kv-menu-mega-panel {
+	.kv-menu--breakpoint-mobile .kv-menu-list .menu-item-has-mega-menu:hover > .kv-menu-mega-panel--align-center {
 		transform: translateX(-50%) translateY(0);
 	}
 }
 
 /* 3. For No Breakpoint (always desktop) */
-.kv-menu--breakpoint-none.kv-menu-mega--width-custom.kv-menu-mega--align-left .kv-menu-list .kv-menu-mega-panel {
+.kv-menu--breakpoint-none .kv-menu-list .kv-menu-mega-panel--align-left {
 	left: 0;
 	right: auto;
 }
-.kv-menu--breakpoint-none.kv-menu-mega--width-custom.kv-menu-mega--align-right .kv-menu-list .kv-menu-mega-panel {
+.kv-menu--breakpoint-none .kv-menu-list .kv-menu-mega-panel--align-right {
 	right: 0;
 	left: auto;
 }
-.kv-menu--breakpoint-none.kv-menu-mega--width-custom.kv-menu-mega--align-center .kv-menu-list .kv-menu-mega-panel {
+.kv-menu--breakpoint-none .kv-menu-list .kv-menu-mega-panel--align-center {
 	left: 50%;
 	right: auto;
 	transform: translateX(-50%) translateY(12px);
 }
-.kv-menu--breakpoint-none.kv-menu-mega--width-custom.kv-menu-mega--align-center .kv-menu-list .menu-item-has-mega-menu:hover > .kv-menu-mega-panel {
+.kv-menu--breakpoint-none .kv-menu-list .menu-item-has-mega-menu:hover > .kv-menu-mega-panel--align-center {
 	transform: translateX(-50%) translateY(0);
+}
+
+/* Ensure transparent backgrounds for inner elements by default */
+.kv-menu-nav,
+.kv-menu-drilldown-container,
+.kv-menu-list {
+	background-color: transparent;
+	background: transparent;
 }
 
 

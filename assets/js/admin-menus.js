@@ -17,6 +17,19 @@
 			}
 		} );
 
+		// Show/hide custom width settings when width type dropdown changes
+		$( document ).on( 'change', '.kv-menu-mega-width-type-select', function() {
+			var $select = $( this );
+			var val = $select.val();
+			var $customWidthWrapper = $select.closest( '.kv-menu-mega-fields-container' ).find( '.kv-menu-mega-custom-width-wrapper' );
+			
+			if ( 'custom' === val ) {
+				$customWidthWrapper.slideDown( 250 );
+			} else {
+				$customWidthWrapper.slideUp( 250 );
+			}
+		} );
+
 		// Dynamic template select change: update edit button href or toggle visibility of edit/create buttons
 		$( document ).on( 'change', '.kv-menu-mega-template-select', function() {
 			var $select = $( this );

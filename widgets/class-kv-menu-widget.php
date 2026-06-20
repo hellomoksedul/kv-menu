@@ -348,7 +348,7 @@ class KV_Menu_Widget extends \Elementor\Widget_Base {
 		$this->start_controls_section(
 			'section_mobile_footer',
 			[
-				'label'     => esc_html__( 'Mobile Drawer Footer', 'kv-menu' ),
+				'label'     => esc_html__( 'Mobile Panel Footer', 'kv-menu' ),
 				'tab'       => \Elementor\Controls_Manager::TAB_CONTENT,
 				'condition' => [
 					'breakpoint!' => 'none',
@@ -483,7 +483,7 @@ class KV_Menu_Widget extends \Elementor\Widget_Base {
 		$this->start_controls_section(
 			'section_style_logo',
 			[
-				'label'     => esc_html__( 'Logo Branding', 'kv-menu' ),
+				'label'     => esc_html__( 'Mobile Logo', 'kv-menu' ),
 				'tab'       => \Elementor\Controls_Manager::TAB_STYLE,
 				'condition' => [
 					'show_logo' => 'yes',
@@ -542,13 +542,89 @@ class KV_Menu_Widget extends \Elementor\Widget_Base {
 
 		$this->end_controls_section();
 
+		// ==========================================
+		// STYLE TAB: MENU CONTAINER
+		// ==========================================
+
+		$this->start_controls_section(
+			'section_style_menu_container',
+			[
+				'label' => esc_html__( 'Main Menu Bar', 'kv-menu' ),
+				'tab'   => \Elementor\Controls_Manager::TAB_STYLE,
+			]
+		);
+
+		$this->add_control(
+			'menu_container_bg',
+			[
+				'label'     => esc_html__( 'Background Color', 'kv-menu' ),
+				'type'      => \Elementor\Controls_Manager::COLOR,
+				'selectors' => [
+					'{{WRAPPER}} .kv-menu-wrapper' => 'background-color: {{VALUE}};',
+					'{{WRAPPER}} .kv-menu-main-bar' => 'background-color: {{VALUE}};',
+				],
+			]
+		);
+
+		$this->add_responsive_control(
+			'menu_container_padding',
+			[
+				'label'      => esc_html__( 'Padding', 'kv-menu' ),
+				'type'       => \Elementor\Controls_Manager::DIMENSIONS,
+				'size_units' => [ 'px', 'em', '%' ],
+				'selectors'  => [
+					'{{WRAPPER}} .kv-menu-wrapper' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					'{{WRAPPER}} .kv-menu-main-bar' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				],
+			]
+		);
+
+		$this->add_group_control(
+			\Elementor\Group_Control_Border::get_type(),
+			[
+				'name'     => 'menu_container_border',
+				'selector' => '{{WRAPPER}} .kv-menu-wrapper, {{WRAPPER}} .kv-menu-main-bar',
+			]
+		);
+
+		$this->add_control(
+			'menu_container_border_radius',
+			[
+				'label'      => esc_html__( 'Border Radius', 'kv-menu' ),
+				'type'       => \Elementor\Controls_Manager::DIMENSIONS,
+				'size_units' => [ 'px', '%' ],
+				'selectors'  => [
+					'{{WRAPPER}} .kv-menu-wrapper' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					'{{WRAPPER}} .kv-menu-main-bar' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				],
+			]
+		);
+
+		$this->add_group_control(
+			\Elementor\Group_Control_Box_Shadow::get_type(),
+			[
+				'name'     => 'menu_container_box_shadow',
+				'selector' => '{{WRAPPER}} .kv-menu-wrapper, {{WRAPPER}} .kv-menu-main-bar',
+			]
+		);
+
+		$this->end_controls_section();
+
 
 
 		$this->start_controls_section(
 			'section_style_main_menu',
 			[
-				'label' => esc_html__( 'Main Menu (Desktop)', 'kv-menu' ),
+				'label' => esc_html__( 'Desktop Menu Items', 'kv-menu' ),
 				'tab'   => \Elementor\Controls_Manager::TAB_STYLE,
+			]
+		);
+
+		$this->add_control(
+			'heading_desktop_items_style',
+			[
+				'label'     => esc_html__( 'Menu Item Links', 'kv-menu' ),
+				'type'      => \Elementor\Controls_Manager::HEADING,
 			]
 		);
 
@@ -796,8 +872,16 @@ class KV_Menu_Widget extends \Elementor\Widget_Base {
 		$this->start_controls_section(
 			'section_style_dropdown',
 			[
-				'label' => esc_html__( 'Dropdown & Submenus', 'kv-menu' ),
+				'label' => esc_html__( 'Desktop Submenus', 'kv-menu' ),
 				'tab'   => \Elementor\Controls_Manager::TAB_STYLE,
+			]
+		);
+
+		$this->add_control(
+			'heading_dropdown_container_style',
+			[
+				'label'     => esc_html__( 'Submenu Container', 'kv-menu' ),
+				'type'      => \Elementor\Controls_Manager::HEADING,
 			]
 		);
 
@@ -854,6 +938,15 @@ class KV_Menu_Widget extends \Elementor\Widget_Base {
 				'selectors' => [
 					'{{WRAPPER}} .kv-menu-list .sub-menu' => 'backdrop-filter: blur({{SIZE}}px); -webkit-backdrop-filter: blur({{SIZE}}px);',
 				],
+			]
+		);
+
+		$this->add_control(
+			'heading_dropdown_items_style',
+			[
+				'label'     => esc_html__( 'Submenu Item Links', 'kv-menu' ),
+				'type'      => \Elementor\Controls_Manager::HEADING,
+				'separator' => 'before',
 			]
 		);
 
@@ -1010,156 +1103,145 @@ class KV_Menu_Widget extends \Elementor\Widget_Base {
 		$this->end_controls_section();
 
 		// ==========================================
-		// STYLE TAB: MEGA MENU PANEL
+		// STYLE TAB: PANEL CLOSE BUTTON (MOBILE)
 		// ==========================================
 
 		$this->start_controls_section(
-			'section_style_mega_menu',
+			'section_style_close_button',
 			[
-				'label' => esc_html__( 'Mega Menu Panel', 'kv-menu' ),
-				'tab'   => \Elementor\Controls_Manager::TAB_STYLE,
-			]
-		);
-
-		$this->add_control(
-			'mega_menu_width_type',
-			[
-				'label'   => esc_html__( 'Width Type', 'kv-menu' ),
-				'type'    => \Elementor\Controls_Manager::SELECT,
-				'options' => [
-					'full'   => esc_html__( 'Full Width (Content)', 'kv-menu' ),
-					'custom' => esc_html__( 'Custom Width', 'kv-menu' ),
+				'label'     => esc_html__( 'Mobile Panel Close Button', 'kv-menu' ),
+				'tab'       => \Elementor\Controls_Manager::TAB_STYLE,
+				'condition' => [
+					'breakpoint!' => 'none',
 				],
-				'default' => 'full',
 			]
 		);
 
 		$this->add_responsive_control(
-			'mega_menu_max_width',
+			'close_button_size',
 			[
-				'label'      => esc_html__( 'Max Width', 'kv-menu' ),
-				'type'       => \Elementor\Controls_Manager::SLIDER,
-				'size_units' => [ 'px', '%', 'vw' ],
-				'range'      => [
+				'label'     => esc_html__( 'Icon Size', 'kv-menu' ),
+				'type'      => \Elementor\Controls_Manager::SLIDER,
+				'range'     => [
 					'px' => [
-						'min' => 200,
-						'max' => 2000,
-						'step' => 10,
-					],
-					'%' => [
 						'min' => 10,
-						'max' => 100,
-					],
-					'vw' => [
-						'min' => 10,
-						'max' => 100,
+						'max' => 60,
 					],
 				],
-				'default'    => [
-					'size' => 1000,
-					'unit' => 'px',
-				],
-				'condition'  => [
-					'mega_menu_width_type' => 'custom',
-				],
-				'selectors'  => [
-					'{{WRAPPER}} .kv-menu-list .kv-menu-mega-panel' => 'max-width: {{SIZE}}{{UNIT}}; width: 100%;',
+				'selectors' => [
+					'{{WRAPPER}} .kv-menu-close-btn' => 'font-size: {{SIZE}}{{UNIT}} !important;',
+					'{{WRAPPER}} .kv-menu-close-btn i' => 'font-size: {{SIZE}}{{UNIT}} !important;',
+					'{{WRAPPER}} .kv-menu-close-btn svg' => 'width: {{SIZE}}{{UNIT}} !important;',
+					'{{WRAPPER}} .kv-menu-close-icon svg' => 'height: {{SIZE}}{{UNIT}} !important;',
 				],
 			]
 		);
 
-		$this->add_control(
-			'mega_menu_position',
+		$this->start_controls_tabs( 'tabs_close_button_style' );
+
+		$this->start_controls_tab(
+			'tab_close_button_normal',
 			[
-				'label'     => esc_html__( 'Position Alignment', 'kv-menu' ),
-				'type'      => \Elementor\Controls_Manager::SELECT,
-				'options'   => [
-					'left'   => esc_html__( 'Left', 'kv-menu' ),
-					'center' => esc_html__( 'Center', 'kv-menu' ),
-					'right'  => esc_html__( 'Right', 'kv-menu' ),
-				],
-				'default'   => 'center',
-				'condition' => [
-					'mega_menu_width_type' => 'custom',
+				'label' => esc_html__( 'Normal', 'kv-menu' ),
+			]
+		);
+
+		$this->add_control(
+			'close_button_color',
+			[
+				'label'     => esc_html__( 'Color', 'kv-menu' ),
+				'type'      => \Elementor\Controls_Manager::COLOR,
+				'selectors' => [
+					'{{WRAPPER}} .kv-menu-close-btn' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .kv-menu-close-btn i' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .kv-menu-close-btn svg' => 'stroke: {{VALUE}} !important;',
+					'{{WRAPPER}} .kv-menu-close-icon svg' => 'fill: {{VALUE}} !important;',
+					'{{WRAPPER}} .kv-menu-close-btn svg path' => 'stroke: {{VALUE}} !important;',
+					'{{WRAPPER}} .kv-menu-close-icon svg path' => 'fill: {{VALUE}} !important;',
 				],
 			]
 		);
 
 		$this->add_control(
-			'mega_menu_bg',
+			'close_button_bg_color',
 			[
 				'label'     => esc_html__( 'Background Color', 'kv-menu' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}} .kv-menu-list .kv-menu-mega-panel' => 'background-color: {{VALUE}};',
+					'{{WRAPPER}} .kv-menu-close-btn' => 'background-color: {{VALUE}} !important;',
 				],
 			]
 		);
 
-		$this->add_control(
-			'mega_menu_glassmorphism',
+		$this->end_controls_tab();
+
+		$this->start_controls_tab(
+			'tab_close_button_hover',
 			[
-				'label'        => esc_html__( 'Enable Glassmorphism Overlay', 'kv-menu' ),
-				'type'         => \Elementor\Controls_Manager::SWITCHER,
-				'label_on'     => esc_html__( 'Yes', 'kv-menu' ),
-				'label_off'    => esc_html__( 'No', 'kv-menu' ),
-				'return_value' => 'yes',
-				'default'      => 'no',
+				'label' => esc_html__( 'Hover', 'kv-menu' ),
 			]
 		);
 
 		$this->add_control(
-			'mega_menu_blur',
+			'close_button_hover_color',
 			[
-				'label'     => esc_html__( 'Glass Backdrop Blur Amount', 'kv-menu' ),
-				'type'      => \Elementor\Controls_Manager::SLIDER,
-				'range'     => [
-					'px' => [
-						'min' => 0,
-						'max' => 30,
-					],
-				],
-				'default'   => [
-					'size' => 12,
-					'unit' => 'px',
-				],
-				'condition' => [
-					'mega_menu_glassmorphism' => 'yes',
-				],
+				'label'     => esc_html__( 'Color (Hover)', 'kv-menu' ),
+				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}} .kv-menu-list .kv-menu-mega-panel' => 'backdrop-filter: blur({{SIZE}}px); -webkit-backdrop-filter: blur({{SIZE}}px);',
+					'{{WRAPPER}} .kv-menu-close-btn:hover' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .kv-menu-close-btn:hover i' => 'color: {{VALUE}} !important;',
+					'{{WRAPPER}} .kv-menu-close-btn:hover svg' => 'stroke: {{VALUE}} !important;',
+					'{{WRAPPER}} .kv-menu-close-icon:hover svg' => 'fill: {{VALUE}} !important;',
+					'{{WRAPPER}} .kv-menu-close-btn:hover svg path' => 'stroke: {{VALUE}} !important;',
+					'{{WRAPPER}} .kv-menu-close-icon:hover svg path' => 'fill: {{VALUE}} !important;',
 				],
 			]
 		);
+
+		$this->add_control(
+			'close_button_hover_bg_color',
+			[
+				'label'     => esc_html__( 'Background Color (Hover)', 'kv-menu' ),
+				'type'      => \Elementor\Controls_Manager::COLOR,
+				'selectors' => [
+					'{{WRAPPER}} .kv-menu-close-btn:hover' => 'background-color: {{VALUE}} !important;',
+				],
+			]
+		);
+
+		$this->end_controls_tab();
+
+		$this->end_controls_tabs();
 
 		$this->add_responsive_control(
-			'mega_menu_padding',
+			'close_button_padding',
 			[
 				'label'      => esc_html__( 'Padding', 'kv-menu' ),
 				'type'       => \Elementor\Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', 'em' ],
 				'selectors'  => [
-					'{{WRAPPER}} .kv-menu-list .kv-menu-mega-panel' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					'{{WRAPPER}} .kv-menu-close-btn' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
+				'separator'  => 'before',
 			]
 		);
 
 		$this->add_group_control(
 			\Elementor\Group_Control_Border::get_type(),
 			[
-				'name'     => 'mega_menu_border',
-				'selector' => '{{WRAPPER}} .kv-menu-list .kv-menu-mega-panel',
+				'name'     => 'close_button_border',
+				'selector' => '{{WRAPPER}} .kv-menu-close-btn',
 			]
 		);
 
 		$this->add_control(
-			'mega_menu_border_radius',
+			'close_button_border_radius',
 			[
 				'label'      => esc_html__( 'Border Radius', 'kv-menu' ),
 				'type'       => \Elementor\Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', '%' ],
 				'selectors'  => [
-					'{{WRAPPER}} .kv-menu-list .kv-menu-mega-panel' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					'{{WRAPPER}} .kv-menu-close-btn' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 			]
 		);
@@ -1167,8 +1249,8 @@ class KV_Menu_Widget extends \Elementor\Widget_Base {
 		$this->add_group_control(
 			\Elementor\Group_Control_Box_Shadow::get_type(),
 			[
-				'name'     => 'mega_menu_box_shadow',
-				'selector' => '{{WRAPPER}} .kv-menu-list .kv-menu-mega-panel',
+				'name'     => 'close_button_box_shadow',
+				'selector' => '{{WRAPPER}} .kv-menu-close-btn',
 			]
 		);
 
@@ -1181,7 +1263,7 @@ class KV_Menu_Widget extends \Elementor\Widget_Base {
 		$this->start_controls_section(
 			'section_style_toggle',
 			[
-				'label'     => esc_html__( 'Toggle Button (Mobile)', 'kv-menu' ),
+				'label'     => esc_html__( 'Mobile Toggle Button', 'kv-menu' ),
 				'tab'       => \Elementor\Controls_Manager::TAB_STYLE,
 				'condition' => [
 					'breakpoint!' => 'none',
@@ -1222,6 +1304,9 @@ class KV_Menu_Widget extends \Elementor\Widget_Base {
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .kv-menu-toggle-btn' => 'color: {{VALUE}}; fill: {{VALUE}};',
+					'{{WRAPPER}} .kv-menu-toggle-btn svg' => 'fill: {{VALUE}};',
+					'{{WRAPPER}} .kv-menu-toggle-btn svg path' => 'fill: {{VALUE}};',
+					'{{WRAPPER}} .kv-menu-hamburger-animated span' => 'background-color: {{VALUE}};',
 				],
 			]
 		);
@@ -1253,6 +1338,10 @@ class KV_Menu_Widget extends \Elementor\Widget_Base {
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .kv-menu-toggle-btn:hover' => 'color: {{VALUE}}; fill: {{VALUE}};',
+					'{{WRAPPER}} .kv-menu-toggle-btn:hover svg' => 'fill: {{VALUE}};',
+					'{{WRAPPER}} .kv-menu-toggle-btn:hover svg path' => 'fill: {{VALUE}};',
+					'{{WRAPPER}} .kv-menu-hamburger-animated:hover span' => 'background-color: {{VALUE}};',
+					'{{WRAPPER}} .kv-menu-toggle-btn:hover .kv-menu-hamburger-animated span' => 'background-color: {{VALUE}};',
 				],
 			]
 		);
@@ -1314,7 +1403,7 @@ class KV_Menu_Widget extends \Elementor\Widget_Base {
 		$this->start_controls_section(
 			'section_style_mobile_panel',
 			[
-				'label'     => esc_html__( 'Mobile Menu Panel', 'kv-menu' ),
+				'label'     => esc_html__( 'Mobile Panel Drawer', 'kv-menu' ),
 				'tab'       => \Elementor\Controls_Manager::TAB_STYLE,
 				'condition' => [
 					'breakpoint!' => 'none',
@@ -1322,23 +1411,12 @@ class KV_Menu_Widget extends \Elementor\Widget_Base {
 			]
 		);
 
-		$this->add_group_control(
-			\Elementor\Group_Control_Typography::get_type(),
-			[
-				'name'     => 'mobile_panel_typography',
-				'selector' => '{{WRAPPER}} .kv-menu-nav .kv-menu-list a',
-			]
-		);
-
+		// Group 1: Drawer Panel Styling
 		$this->add_control(
-			'mobile_panel_bg',
+			'heading_mobile_drawer_panel_style',
 			[
-				'label'     => esc_html__( 'Panel Background', 'kv-menu' ),
-				'type'      => \Elementor\Controls_Manager::COLOR,
-				'default'   => 'rgba(255, 255, 255, 0.98)',
-				'selectors' => [
-					'{{WRAPPER}} .kv-menu-nav' => 'background-color: {{VALUE}};',
-				],
+				'label'     => esc_html__( 'Drawer Panel', 'kv-menu' ),
+				'type'      => \Elementor\Controls_Manager::HEADING,
 			]
 		);
 
@@ -1403,6 +1481,30 @@ class KV_Menu_Widget extends \Elementor\Widget_Base {
 		);
 
 		$this->add_control(
+			'mobile_panel_bg',
+			[
+				'label'     => esc_html__( 'Panel Background', 'kv-menu' ),
+				'type'      => \Elementor\Controls_Manager::COLOR,
+				'default'   => 'rgba(255, 255, 255, 0.98)',
+				'selectors' => [
+					'{{WRAPPER}}' => '--kv-mobile-panel-bg: {{VALUE}};',
+				],
+			]
+		);
+
+		$this->add_responsive_control(
+			'mobile_panel_padding',
+			[
+				'label'      => esc_html__( 'Panel Padding', 'kv-menu' ),
+				'type'       => \Elementor\Controls_Manager::DIMENSIONS,
+				'size_units' => [ 'px', 'em' ],
+				'selectors'  => [
+					'{{WRAPPER}} .kv-menu-nav' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				],
+			]
+		);
+
+		$this->add_control(
 			'mobile_panel_glassmorphism',
 			[
 				'label'        => esc_html__( 'Enable Glassmorphism', 'kv-menu' ),
@@ -1438,97 +1540,6 @@ class KV_Menu_Widget extends \Elementor\Widget_Base {
 			]
 		);
 
-		$this->start_controls_tabs( 'tabs_mobile_item_style' );
-
-		$this->start_controls_tab(
-			'tab_mobile_item_normal',
-			[
-				'label' => esc_html__( 'Normal', 'kv-menu' ),
-			]
-		);
-
-		$this->add_control(
-			'mobile_item_color',
-			[
-				'label'     => esc_html__( 'Text Color', 'kv-menu' ),
-				'type'      => \Elementor\Controls_Manager::COLOR,
-				'selectors' => [
-					'{{WRAPPER}} .kv-menu-nav .kv-menu-list a' => 'color: {{VALUE}};',
-				],
-			]
-		);
-
-		$this->add_control(
-			'mobile_item_bg',
-			[
-				'label'     => esc_html__( 'Background Color', 'kv-menu' ),
-				'type'      => \Elementor\Controls_Manager::COLOR,
-				'selectors' => [
-					'{{WRAPPER}} .kv-menu-nav .kv-menu-list a' => 'background-color: {{VALUE}};',
-				],
-			]
-		);
-
-		$this->end_controls_tab();
-
-		$this->start_controls_tab(
-			'tab_mobile_item_hover',
-			[
-				'label' => esc_html__( 'Hover', 'kv-menu' ),
-			]
-		);
-
-		$this->add_control(
-			'mobile_item_hover_color',
-			[
-				'label'     => esc_html__( 'Text Color (Hover)', 'kv-menu' ),
-				'type'      => \Elementor\Controls_Manager::COLOR,
-				'selectors' => [
-					'{{WRAPPER}} .kv-menu-nav .kv-menu-list li:hover > a, {{WRAPPER}} .kv-menu-nav .kv-menu-list a:hover' => 'color: {{VALUE}};',
-				],
-			]
-		);
-
-		$this->add_control(
-			'mobile_item_hover_bg',
-			[
-				'label'     => esc_html__( 'Background Color (Hover)', 'kv-menu' ),
-				'type'      => \Elementor\Controls_Manager::COLOR,
-				'selectors' => [
-					'{{WRAPPER}} .kv-menu-nav .kv-menu-list li:hover > a, {{WRAPPER}} .kv-menu-nav .kv-menu-list a:hover' => 'background-color: {{VALUE}};',
-				],
-			]
-		);
-
-		$this->end_controls_tab();
-
-		$this->end_controls_tabs();
-
-		$this->add_responsive_control(
-			'mobile_panel_padding',
-			[
-				'label'      => esc_html__( 'Panel Padding', 'kv-menu' ),
-				'type'       => \Elementor\Controls_Manager::DIMENSIONS,
-				'size_units' => [ 'px', 'em' ],
-				'selectors'  => [
-					'{{WRAPPER}} .kv-menu-nav' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-				],
-				'separator'  => 'before',
-			]
-		);
-
-		$this->add_responsive_control(
-			'mobile_item_padding',
-			[
-				'label'      => esc_html__( 'Item Link Padding', 'kv-menu' ),
-				'type'       => \Elementor\Controls_Manager::DIMENSIONS,
-				'size_units' => [ 'px', 'em' ],
-				'selectors'  => [
-					'{{WRAPPER}} .kv-menu-nav .kv-menu-list a' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-				],
-			]
-		);
-
 		$this->add_group_control(
 			\Elementor\Group_Control_Border::get_type(),
 			[
@@ -1557,10 +1568,139 @@ class KV_Menu_Widget extends \Elementor\Widget_Base {
 			]
 		);
 
+		// Group 2: Menu Items Links
+		$this->add_control(
+			'heading_mobile_drawer_items_style',
+			[
+				'label'     => esc_html__( 'Menu Items Links', 'kv-menu' ),
+				'type'      => \Elementor\Controls_Manager::HEADING,
+				'separator' => 'before',
+			]
+		);
+
+		$this->add_group_control(
+			\Elementor\Group_Control_Typography::get_type(),
+			[
+				'name'     => 'mobile_panel_typography',
+				'selector' => '{{WRAPPER}} .kv-menu-nav .kv-menu-list a',
+			]
+		);
+
+		$this->start_controls_tabs( 'tabs_mobile_item_style' );
+
+		$this->start_controls_tab(
+			'tab_mobile_item_normal',
+			[
+				'label' => esc_html__( 'Normal', 'kv-menu' ),
+			]
+		);
+
+		$this->add_control(
+			'mobile_item_color',
+			[
+				'label'     => esc_html__( 'Text Color', 'kv-menu' ),
+				'type'      => \Elementor\Controls_Manager::COLOR,
+				'selectors' => [
+					'{{WRAPPER}}' => '--kv-mobile-item-color: {{VALUE}};',
+				],
+			]
+		);
+
+		$this->add_control(
+			'mobile_item_bg',
+			[
+				'label'     => esc_html__( 'Background Color', 'kv-menu' ),
+				'type'      => \Elementor\Controls_Manager::COLOR,
+				'selectors' => [
+					'{{WRAPPER}}' => '--kv-mobile-item-bg: {{VALUE}};',
+				],
+			]
+		);
+
+		$this->end_controls_tab();
+
+		$this->start_controls_tab(
+			'tab_mobile_item_hover',
+			[
+				'label' => esc_html__( 'Hover', 'kv-menu' ),
+			]
+		);
+
+		$this->add_control(
+			'mobile_item_hover_color',
+			[
+				'label'     => esc_html__( 'Text Color (Hover)', 'kv-menu' ),
+				'type'      => \Elementor\Controls_Manager::COLOR,
+				'selectors' => [
+					'{{WRAPPER}}' => '--kv-mobile-item-hover-color: {{VALUE}};',
+				],
+			]
+		);
+
+		$this->add_control(
+			'mobile_item_hover_bg',
+			[
+				'label'     => esc_html__( 'Background Color (Hover)', 'kv-menu' ),
+				'type'      => \Elementor\Controls_Manager::COLOR,
+				'selectors' => [
+					'{{WRAPPER}}' => '--kv-mobile-item-hover-bg: {{VALUE}};',
+				],
+			]
+		);
+
+		$this->end_controls_tab();
+
+		$this->start_controls_tab(
+			'tab_mobile_item_active',
+			[
+				'label' => esc_html__( 'Active', 'kv-menu' ),
+			]
+		);
+
+		$this->add_control(
+			'mobile_item_active_color',
+			[
+				'label'     => esc_html__( 'Text Color (Active)', 'kv-menu' ),
+				'type'      => \Elementor\Controls_Manager::COLOR,
+				'selectors' => [
+					'{{WRAPPER}}' => '--kv-mobile-item-active-color: {{VALUE}};',
+				],
+			]
+		);
+
+		$this->add_control(
+			'mobile_item_active_bg',
+			[
+				'label'     => esc_html__( 'Background Color (Active)', 'kv-menu' ),
+				'type'      => \Elementor\Controls_Manager::COLOR,
+				'selectors' => [
+					'{{WRAPPER}}' => '--kv-mobile-item-active-bg: {{VALUE}};',
+				],
+			]
+		);
+
+		$this->end_controls_tab();
+
+		$this->end_controls_tabs();
+
+		$this->add_responsive_control(
+			'mobile_item_padding',
+			[
+				'label'      => esc_html__( 'Item Link Padding', 'kv-menu' ),
+				'type'       => \Elementor\Controls_Manager::DIMENSIONS,
+				'size_units' => [ 'px', 'em' ],
+				'selectors'  => [
+					'{{WRAPPER}} .kv-menu-nav .kv-menu-list a' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				],
+				'separator'  => 'before',
+			]
+		);
+
+		// Group 3: Submenu Indicators
 		$this->add_control(
 			'mobile_indicator_heading',
 			[
-				'label'     => esc_html__( 'Submenu Indicator', 'kv-menu' ),
+				'label'     => esc_html__( 'Submenu Indicators', 'kv-menu' ),
 				'type'      => \Elementor\Controls_Manager::HEADING,
 				'separator' => 'before',
 			]
@@ -1605,7 +1745,7 @@ class KV_Menu_Widget extends \Elementor\Widget_Base {
 				'label'     => esc_html__( 'Color', 'kv-menu' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}} .kv-menu-sub-indicator-mobile' => 'color: {{VALUE}}; fill: {{VALUE}};',
+					'{{WRAPPER}}' => '--kv-mobile-indicator-color: {{VALUE}};',
 				],
 			]
 		);
@@ -1625,8 +1765,7 @@ class KV_Menu_Widget extends \Elementor\Widget_Base {
 				'label'     => esc_html__( 'Color (Hover)', 'kv-menu' ),
 				'type'      => \Elementor\Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}} .kv-menu-nav .kv-menu-list li:hover > a .kv-menu-sub-indicator-mobile' => 'color: {{VALUE}}; fill: {{VALUE}};',
-					'{{WRAPPER}} .kv-menu-nav .kv-menu-list a:hover .kv-menu-sub-indicator-mobile' => 'color: {{VALUE}}; fill: {{VALUE}};',
+					'{{WRAPPER}}' => '--kv-mobile-indicator-hover-color: {{VALUE}};',
 				],
 			]
 		);
@@ -1640,7 +1779,7 @@ class KV_Menu_Widget extends \Elementor\Widget_Base {
 		$this->start_controls_section(
 			'section_style_mobile_footer',
 			[
-				'label'     => esc_html__( 'Mobile Drawer Footer', 'kv-menu' ),
+				'label'     => esc_html__( 'Mobile Panel Footer', 'kv-menu' ),
 				'tab'       => \Elementor\Controls_Manager::TAB_STYLE,
 				'condition' => [
 					'breakpoint!' => 'none',
@@ -1823,11 +1962,7 @@ class KV_Menu_Widget extends \Elementor\Widget_Base {
 			$this->add_render_attribute( 'wrapper', 'class', 'kv-menu--anim-' . $settings['panel_animation'] );
 		}
 
-		// Add mega menu width type and alignment classes to the wrapper
-		$mega_width_type = ! empty( $settings['mega_menu_width_type'] ) ? $settings['mega_menu_width_type'] : 'full';
-		$mega_pos        = ! empty( $settings['mega_menu_position'] ) ? $settings['mega_menu_position'] : 'center';
-		$this->add_render_attribute( 'wrapper', 'class', 'kv-menu-mega--width-' . $mega_width_type );
-		$this->add_render_attribute( 'wrapper', 'class', 'kv-menu-mega--align-' . $mega_pos );
+		// Mega menu wrapper classes removed since width and alignment are handled via WP menus item settings
 
 		if ( 'yes' !== $settings['show_underline'] ) {
 			$this->add_render_attribute( 'wrapper', 'class', 'kv-menu--hide-underline' );
@@ -1980,7 +2115,39 @@ class KV_Menu_Widget extends \Elementor\Widget_Base {
 									}
 									
 									if ( ! empty( $mega_content ) ) {
-										$item_output .= '<div class="kv-menu-mega-panel">' . $mega_content . '</div>';
+										$mega_width_type = get_post_meta( $item->ID, '_kv_menu_mega_width_type', true );
+										$mega_custom_width = get_post_meta( $item->ID, '_kv_menu_mega_custom_width', true );
+										$mega_alignment = get_post_meta( $item->ID, '_kv_menu_mega_alignment', true );
+
+										if ( empty( $mega_width_type ) ) {
+											$mega_width_type = 'full';
+										}
+										if ( empty( $mega_custom_width ) ) {
+											$mega_custom_width = '1000px';
+										}
+										if ( empty( $mega_alignment ) ) {
+											$mega_alignment = 'center';
+										}
+
+										$panel_classes = [ 'kv-menu-mega-panel' ];
+										$panel_style = '';
+
+										if ( 'custom' === $mega_width_type ) {
+											$panel_classes[] = 'kv-menu-mega-panel--custom-width';
+											$panel_classes[] = 'kv-menu-mega-panel--align-' . $mega_alignment;
+
+											$clean_width = trim( $mega_custom_width );
+											if ( ! empty( $clean_width ) ) {
+												if ( is_numeric( $clean_width ) ) {
+													$clean_width .= 'px';
+												}
+												$panel_style = ' style="max-width: ' . esc_attr( $clean_width ) . '; width: 100%;"';
+											}
+										} else {
+											$panel_classes[] = 'kv-menu-mega-panel--full-width';
+										}
+
+										$item_output .= '<div class="' . esc_attr( implode( ' ', $panel_classes ) ) . '"' . $panel_style . '>' . $mega_content . '</div>';
 									}
 								}
 							}
